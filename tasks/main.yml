@@ -1,0 +1,37 @@
+---
+- name: Install Grafana
+  yum: name={{item}} state=installed
+  with_items: "{{grafana_packages}}"
+
+- name: Confirure Grafana
+  template: src=grafana.ini dest=/etc/grafana/grafana.ini
+  notify: service grafana restart
+
+- name: Clone Zabbix datasource
+  git:
+    repo: https://github.com/alexanderzobnin/grafana-zabbix.git
+    dest: /usr/share/grafana-zabbix
+    version: "{{grafana_zabbix_version}}"
+    accept_hostkey: yes
+
+- name: Prepare Zabbix datasource destination
+  file: path=/usr/share/grafana/public/app/plugins/datasource/zabbix state=directory
+  when: grafana_zabbix_plugin
+
+- name: Install Zabbix datasource
+  command: mount -o bind /usr/share/grafana-zabbix/zabbix /usr/share/grafana/public/app/plugins/datasource/zabbix
+  args:
+    creates: /usr/share/grafana/public/app/plugins/datasource/zabbix/datasource.js
+  when: grafana_zabbix_plugin
+
+- name: Install Grafana service
+  service: name=grafana-server state=started enabled=yes
+
+- name: Configure nginx with Grafana
+  template: src=nginx.conf dest=/etc/nginx/conf.d/grafana.conf
+  notify: service nginx restart
+  when: grafana_nginx
+
+- name: Configure default dashboard
+  copy: src=home.json dest=/usr/share/grafana/public/dashboards/home.json
+  when: grafana_custom_dashboard

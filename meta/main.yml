@@ -1,0 +1,13 @@
+---
+galaxy_info:
+  author: Julien Maitrehenry
+  description: An Ansible role for installing Grafana.
+  company: PetalMD
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+    - name: CentOS
+      versions:
+      - 7
+  categories:
+    - database
