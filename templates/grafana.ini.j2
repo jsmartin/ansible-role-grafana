@@ -21,15 +21,9 @@ http_addr = {{ grafana_ip }}
 # The http port  to use
 http_port = {{ grafana_port }}
 
-# The public facing domain name used to access grafana from a browser
-domain = {{grafana_virtualhost}}
-
 # Redirect to correct domain if host header does not match domain
 # Prevents DNS rebinding attacks
 enforce_domain = false
-
-# The full public facing url
-root_url = https://{{ grafana_virtualhost }}
 
 # Log web requests
 ;router_logging = false
