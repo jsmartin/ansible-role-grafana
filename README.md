@@ -1,12 +1,12 @@
 # Ansible role for Grafana
 
-Ansible role for [Grafana](http://grafana.org/) on RHEL 7.x
+Ansible role for [Grafana](http://grafana.org/) on EL 7.x
 
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
 ## Installation
 ```
-$ ansible-galaxy install jmaitrehenry.grafana
+$ ansible-galaxy install jsmartin.grafana
 ```
 
 ## Getting started
@@ -14,7 +14,7 @@ $ ansible-galaxy install jmaitrehenry.grafana
 ---
 - hosts: grafana.example.com
   roles:
-    - jmaitrehenry.grafana
+    - jsmartin.grafana
 ```
 
 ## Configurables
@@ -42,14 +42,6 @@ grafana_auth_google_allow_sign_up: "false"
 grafana_auth_google_client_id: "some_client_id"
 grafana_auth_google_client_secret: "some_client_secret"
 grafana_auth_google_allowed_domains: "petalmd.com"
-
-# Nginx
-grafana_nginx: true
-grafana_nginx_ssl: false
-grafana_nginx_ssl_certificate: "/etc/nginx/ssl/cert"
-grafana_nginx_ssl_certificate_key: "/etc/nginx/ssl/key"
-grafana_nginx_ssl_dhparam: "/etc/nginx/ssl/dhparam.pem"
-grafana_nginx_ssl_trusted_certificate: "/etc/nginx/ssl/provider.crt"
 ```
 
 ## Contributing
@@ -62,7 +54,10 @@ Contributions, questions, and comments are all welcomed and encouraged!
 5. Submit a pull request :D
 
 ## Credits
+Fork Maintainer:
+- [James Martin](https://github.com/jsmartin)
 
+Forked from:
 - [Julien Maitrehenry](https://github.com/jmaitrehenry)
 
 ## License
