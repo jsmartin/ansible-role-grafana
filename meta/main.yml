@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  author: Julien Maitrehenry
+  author: James Martin
   description: An Ansible role for installing Grafana.
-  company: PetalMD
+  company: Ansible
   license: MIT
   min_ansible_version: 1.9
   platforms:
