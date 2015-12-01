@@ -1,6 +1,7 @@
 ---
 grafana_packages:
   - "https://grafanarel.s3.amazonaws.com/builds/grafana-2.5.0-1.x86_64.rpm"
+  - "python-httplib2"
 
 grafana_ip: "0.0.0.0"
 grafana_port: 3000
