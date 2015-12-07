@@ -6,7 +6,7 @@ Ansible role for [Grafana](http://grafana.org/) on EL 7.x
 
 ## Installation
 ```
-$ ansible-galaxy install jsmartin.grafana
+$ ansible-galaxy install jmartin.grafana
 ```
 
 ## Getting started
@@ -14,7 +14,7 @@ $ ansible-galaxy install jsmartin.grafana
 ---
 - hosts: grafana.example.com
   roles:
-    - jsmartin.grafana
+    - jmartin.grafana
 ```
 
 ## Configurables
