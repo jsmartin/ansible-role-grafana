@@ -32,12 +32,19 @@
     force_basic_auth: yes
   tags: datasource
   register: datasources
-  when: grafana_data_source
+  when: grafana_data_source is defined
 
 - name: set datasource fact
   set_fact:
     datasources: "{{ datasources.json |map(attribute='name')|join(',') }}"
   tags: datasource
+  when: datasources.json.name is defined
+
+- name: fallback - set datasources fact
+  set_fact:
+    datasources: ""
+  tags: datasource
+  when: datasources.json is not defined
 
 - name: Setup test datasource
   uri:
@@ -51,7 +58,7 @@
   tags: datasource
   register: result
   changed_when: result.status == 200
-  when: grafana_data_source and grafana_data_source.name not in datasources
+  when: grafana_data_source is defined and grafana_data_source.name not in datasources
 
 - name: Configure test dashboard
   uri:
