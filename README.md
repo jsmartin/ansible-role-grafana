@@ -14,16 +14,37 @@ $ ansible-galaxy install jmartin.grafana
 ---
 - hosts: grafana.example.com
   roles:
-    - jmartin.grafana
+  - { # Grafana
+      role: jmartin.grafana,
+      #----- Variables Example
+      grafana_ip: "0.0.0.0",
+      grafana_port: 3000,
+      grafana_admin_password: "password",
+      grafana_secret_key: "18Z98oGhk95Oo72OmuG484eBP4g2774c",
+      grafana_data_source: {
+        isDefault: yes,
+        database: telegraf,
+        user: root,
+        password: root,
+        name: training,
+        type: influxdb,
+        url: 'http://localhost:8086',
+        access: proxy,
+        basicAuth: false
+      }
+      #-----/Variables Example
+    }
 ```
 
 ## Configurables
 ```
 ---
+# Packages
 grafana_packages:
   - "https://grafanarel.s3.amazonaws.com/builds/grafana-2.5.0-1.x86_64.rpm"
   - git
 
+# Server Configuration
 grafana_ip: "0.0.0.0"
 grafana_port: 3000
 grafana_admin_password: "password"
@@ -31,6 +52,19 @@ grafana_secret_key: "18Z98oGhk95Oo72OmuG484eBP4g2774c"
 grafana_session_provider: "memory"
 grafana_sessions_provider_config: ""
 grafana_custom_dashboard: false
+
+# Data Source
+grafana_data_source: {
+  isDefault: yes,
+  database: telegraf,
+  user: root,
+  password: root,
+  name: training,
+  type: influxdb,
+  url: 'http://localhost:8086',
+  access: proxy,
+  basicAuth: false
+}
 
 # Plugins
 grafana_zabbix_plugin: false
@@ -56,6 +90,9 @@ Contributions, questions, and comments are all welcomed and encouraged!
 ## Credits
 Fork Maintainer:
 - [James Martin](https://github.com/jsmartin)
+
+Fork Maintenance:
+- [Louis T. Getterman IV](https://github.com/LTGIV)
 
 Forked from:
 - [Julien Maitrehenry](https://github.com/jmaitrehenry)
