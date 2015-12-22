@@ -36,7 +36,7 @@
 
 - name: set datasource fact
   set_fact:
-    grafana_datasources: "{{ datasources.json | default([]) | map(attribute='name') | join(',') | default('') }}"
+    grafana_datasources: "{{ datasources.json | default([]) | map(attribute='name') | list }}"
   tags: datasource
 
 - name: Setup test datasource
