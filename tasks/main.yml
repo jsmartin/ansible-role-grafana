@@ -6,7 +6,7 @@
   with_items: "{{grafana_packages}}"
   tags: package
 
-- name: Confirure Grafana
+- name: Configure Grafana
   template: 
     src: grafana.ini.j2
     dest: /etc/grafana/grafana.ini
@@ -36,15 +36,8 @@
 
 - name: set datasource fact
   set_fact:
-    datasources: "{{ datasources.json |map(attribute='name')|join(',') }}"
+    grafana_datasources: "{{ datasources.json | default([]) | map(attribute='name') | list }}"
   tags: datasource
-  when: datasources.json.name is defined
-
-- name: fallback - set datasources fact
-  set_fact:
-    datasources: ""
-  tags: datasource
-  when: datasources.json is not defined
 
 - name: Setup test datasource
   uri:
@@ -58,7 +51,7 @@
   tags: datasource
   register: result
   changed_when: result.status == 200
-  when: grafana_data_source is defined and grafana_data_source.name not in datasources
+  when: grafana_data_source is defined and grafana_data_source.name not in grafana_datasources
 
 - name: Configure test dashboard
   uri:
