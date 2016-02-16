@@ -6,9 +6,10 @@ galaxy_info:
   license: MIT
   min_ansible_version: 1.9
   platforms:
-    - name: CentOS
+    - name: EL
       versions:
       - 7
   categories:
     - monitoring
     - system
+  dependencies: []
