@@ -46,7 +46,7 @@
     method: POST
     user: admin
     password: "{{ grafana_admin_password }}"
-    body: "{{ grafana_data_source | to_json }}"
+    body: " {{ grafana_data_source | to_json }}"
     force_basic_auth: yes
   tags: datasource
   register: result
@@ -60,7 +60,7 @@
     method: POST
     user: admin
     password: "{{ grafana_admin_password }}"
-    body: "{{ lookup('file',grafana_custom_dashboard) }}"
+    body: " {{ lookup('file',grafana_custom_dashboard) }}"
     force_basic_auth: yes
   tags: dashboard
   register: result
