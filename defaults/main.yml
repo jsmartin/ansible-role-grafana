@@ -1,6 +1,6 @@
 ---
 grafana_packages:
-  - "https://s3.amazonaws.com/ansible-training-resources/grafana/grafana-2.6.0-1.x86_64.rpm"
+  - "grafana"
   - "python-httplib2"
 
 grafana_ip: "0.0.0.0"
@@ -9,11 +9,13 @@ grafana_admin_password: "password"
 grafana_secret_key: "18Z98oGhk95Oo72OmuG484eBP4g2774c"
 grafana_session_provider: "memory"
 grafana_sessions_provider_config: ""
-grafana_custom_dashboard: false
+grafana_custom_dashboards: []
 
 # Plugins
 grafana_zabbix_plugin: false
 grafana_zabbix_version: "master"
+
+grafana_install_plugins: []
 
 # Google Auth
 grafana_auth_google: false
@@ -21,4 +23,3 @@ grafana_auth_google_allow_sign_up: "false"
 grafana_auth_google_client_id: "some_client_id"
 grafana_auth_google_client_secret: "some_client_secret"
 grafana_auth_google_allowed_domains: "petalmd.com"
-

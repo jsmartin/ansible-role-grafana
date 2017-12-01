@@ -1,26 +1,42 @@
 ---
+- name: Add Grafana repository
+  yum_repository:
+    name: grafana
+    description: Grafana Repository
+    baseurl: https://packagecloud.io/grafana/stable/el/7/$basearch
+    gpgcheck: yes
+    gpgkey:
+      - "https://packagecloud.io/gpg.key"
+      - "https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana"
+    sslcacert: /etc/pki/tls/certs/ca-bundle.crt
+
 - name: Install Grafana
-  yum: 
-    name: "{{item}}" 
+  yum:
+    name: "{{item}}"
     state: installed
   with_items: "{{grafana_packages}}"
   tags: package
 
 - name: Configure Grafana
-  template: 
+  template:
     src: grafana.ini.j2
     dest: /etc/grafana/grafana.ini
   notify: restart grafana
 
 - name: Install Grafana service
-  service: 
-    name: grafana-server 
+  service:
+    name: grafana-server
     state: started
     enabled: yes
 
 - name: wait for grafana port
   wait_for:
     port: "{{ grafana_port }}"
+
+- name: Install plugins
+  command: "grafana-cli plugins install {{ item }}"
+  with_items: "{{ grafana_install_plugins }}"
+  notify: restart grafana
 
 - name: get datasources
   uri:
@@ -61,11 +77,11 @@
     method: POST
     user: admin
     password: "{{ grafana_admin_password }}"
-    body: "{{ lookup('file',grafana_custom_dashboard) }}"
+    body: "{{ lookup('file',item) }}"
     body_format: json
     force_basic_auth: yes
   tags: dashboard
   register: result
   changed_when: result.status == 200
   failed_when: result.status != 200 and result.status != 412
-  when: grafana_custom_dashboard
+  with_items: "{{ grafana_custom_dashboards }}"
