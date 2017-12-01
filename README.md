@@ -51,7 +51,7 @@ grafana_admin_password: "password"
 grafana_secret_key: "18Z98oGhk95Oo72OmuG484eBP4g2774c"
 grafana_session_provider: "memory"
 grafana_sessions_provider_config: ""
-grafana_custom_dashboard: false
+grafana_custom_dashboars: []
 
 # Data Source
 grafana_data_source: {
