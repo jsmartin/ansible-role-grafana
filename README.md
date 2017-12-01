@@ -41,7 +41,7 @@ $ ansible-galaxy install jmartin.grafana
 ---
 # Packages
 grafana_packages:
-  - "https://grafanarel.s3.amazonaws.com/builds/grafana-2.5.0-1.x86_64.rpm"
+  - grafana
   - git
 
 # Server Configuration
